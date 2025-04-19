@@ -12,23 +12,23 @@ import {
 export class PlaceImage {
   @ApiProperty({ example: 1, description: 'Unique ID of the image' })
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ApiProperty({
     example: 'http://example.com/image.jpg',
     description: 'URL of the image',
   })
   @Column()
-  url: string;
+  url!: string;
 
   @ApiProperty({ description: 'Place associated with the image' })
   @ManyToOne(() => Place, (place) => place.images)
-  place: Place;
+  place!: Place;
 
   @ApiProperty({
     example: new Date().toISOString(),
     description: 'Date when the image was uploaded',
   })
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 }

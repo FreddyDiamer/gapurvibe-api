@@ -65,9 +65,10 @@ export class AuthService {
   async validateToken(token: string) {
     try {
       const payload = this.jwtService.verify(token);
-      return await this.usersService.findOne(payload.sub); // payload.sub - это ID пользователя
+
+      return payload;
     } catch (error) {
-      return null; // Возвращаем null, если токен недействителен
+      return null;
     }
   }
 }

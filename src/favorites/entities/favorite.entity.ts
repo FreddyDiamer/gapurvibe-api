@@ -1,7 +1,6 @@
 import { Place } from 'src/place/entities/place.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
-  Column,
   CreateDateColumn,
   Entity,
   ManyToOne,
@@ -11,14 +10,14 @@ import {
 @Entity()
 export class Favorite {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ManyToOne(() => User, (user) => user.id)
-  user: User;
+  user!: User;
 
   @ManyToOne(() => Place, (place) => place.id)
-  place: Place;
+  place!: Place;
 
   @CreateDateColumn()
-  createdAt: number;
+  createdAt!: number;
 }

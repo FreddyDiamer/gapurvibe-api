@@ -11,24 +11,24 @@ import {
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ApiProperty({ example: 'Freddy' })
   @Column({ unique: true })
-  username: string;
+  username!: string;
 
   @ApiProperty({ example: 'freddy@gmail.com' })
   @Column({ unique: true })
-  email: string;
+  email!: string;
 
   @ApiProperty({ example: '123456' })
   @Column()
-  password: string;
+  password!: string;
 
   @OneToMany(() => Place, (place) => place.user)
-  places: Place[];
+  places!: Place[];
 
   @ApiProperty({ example: new Date().toISOString() })
   @CreateDateColumn()
-  createdAt: string;
+  createdAt!: string;
 }

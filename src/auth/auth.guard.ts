@@ -6,7 +6,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from './public.decorator';
+import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -32,12 +33,13 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException('No token provided');
     }
 
-    const user = await this.authService.validateToken(token);
+    const user: User = await this.authService.validateToken(token);
     if (!user) {
       throw new UnauthorizedException('Invalid token');
     }
 
     request.user = user;
+
     return true;
   }
 }

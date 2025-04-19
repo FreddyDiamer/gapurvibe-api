@@ -19,7 +19,10 @@ export class TagsService {
 
       return await this.tagsRepository.save(tag);
     } catch (error) {
-      throw new ConflictException(error.message);
+      if (error instanceof Error) {
+        throw new ConflictException(error.message);
+      }
+      throw error;
     }
   }
 

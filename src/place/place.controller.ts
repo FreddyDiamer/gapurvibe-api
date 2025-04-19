@@ -18,6 +18,9 @@ import { AddTagDto } from './dto/add-tag.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { STATIC_FILES } from 'src/config/constants';
+import { CurrentUser } from 'src/decorators/user.decorator';
+import { User } from 'src/users/entities/user.entity';
 
 @Controller('place')
 export class PlaceController {
@@ -29,7 +32,7 @@ export class PlaceController {
   @UseInterceptors(
     FilesInterceptor('images', 10, {
       storage: diskStorage({
-        destination: './uploads',
+        destination: '.' + STATIC_FILES.UPLOAD_DESTINATION,
         filename: (_, file, callback) => {
           const uniqueSuffix =
             Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -42,15 +45,16 @@ export class PlaceController {
   async create(
     @Body() createPlaceDto: CreatePlaceDto,
     @UploadedFiles() files: Express.Multer.File[],
+    @CurrentUser() user: User,
   ) {
-    return this.placeService.create(createPlaceDto, files);
+    return this.placeService.create(createPlaceDto, user.id, files);
   }
 
   @Post(':id/images')
   @UseInterceptors(
     FilesInterceptor('images', 10, {
       storage: diskStorage({
-        destination: './uploads',
+        destination: '.' + STATIC_FILES.UPLOAD_DESTINATION,
         filename: (_, file, callback) => {
           const uniqueSuffix =
             Date.now() + '-' + Math.round(Math.random() * 1e9);

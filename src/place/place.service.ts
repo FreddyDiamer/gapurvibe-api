@@ -8,6 +8,7 @@ import { UsersService } from 'src/users/users.service';
 import { AddTagDto } from './dto/add-tag.dto';
 import { TagsService } from 'src/tags/tags.service';
 import { PlaceImagesService } from 'src/place-images/place-images.service';
+import { STATIC_FILES } from 'src/config/constants';
 
 @Injectable()
 export class PlaceService {
@@ -24,7 +25,7 @@ export class PlaceService {
 
     const imagePromises = files.map((file) => {
       const fileName = file.filename;
-      const fileUrl = `/uploads/${fileName}`;
+      const fileUrl = `${STATIC_FILES.UPLOAD_DESTINATION}/${fileName}`;
 
       return this.placeImagesService.create({
         url: fileUrl,
@@ -36,8 +37,12 @@ export class PlaceService {
     return this.findOne(placeId);
   }
 
-  async create(createPlaceDto: CreatePlaceDto, files?: Express.Multer.File[]) {
-    const user = await this.usersService.findOne(createPlaceDto.userId);
+  async create(
+    createPlaceDto: CreatePlaceDto,
+    userId: number,
+    files?: Express.Multer.File[],
+  ) {
+    const user = await this.usersService.findOne(userId);
     if (!user) throw new NotFoundException('User not found');
 
     createPlaceDto = {

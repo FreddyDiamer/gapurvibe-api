@@ -1,11 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePlaceDto {
-  @ApiProperty({ example: 1, description: 'User ID who creates the place' })
-  userId: number;
-
   @ApiProperty({ example: 'Darvaza' })
-  name: string;
+  name!: string;
 
   @ApiProperty({
     example: 'Unique place in Turkmenistan with fire in the crater',
@@ -13,10 +10,10 @@ export class CreatePlaceDto {
   description?: string;
 
   @ApiProperty({ example: -52.4322 })
-  latitude: number;
+  latitude!: number;
 
   @ApiProperty({ example: 72.4322 })
-  longitude: number;
+  longitude!: number;
 
   @ApiProperty({ example: 'unique' })
   category?: string;

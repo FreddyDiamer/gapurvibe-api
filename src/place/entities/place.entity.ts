@@ -18,52 +18,52 @@ import {
 export class Place {
   @ApiProperty({ example: 1, description: 'Unique ID' })
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ApiProperty({ example: 2, description: 'User who created place' })
   @ManyToOne(() => User, (user) => user.places)
-  user: User;
+  user!: User;
 
   @ApiProperty({ example: [1] })
   @ManyToMany(() => Tag, (tag) => tag.places)
   @JoinTable()
-  tags: Tag[];
+  tags!: Tag[];
 
   @ApiProperty({ example: 'Darvaza' })
   @Column()
-  name: string;
+  name!: string;
 
   @ApiProperty({
     example: 'Unique place in Turkmenistan with the fine in the crater',
   })
   @Column({ nullable: true })
-  description: string;
+  description!: string;
 
   @ApiProperty({ example: -52.4322 })
   @Column({ type: 'float' })
-  latitude: number;
+  latitude!: number;
 
   @ApiProperty({ example: 72.4322 })
   @Column({ type: 'float' })
-  longitude: number;
+  longitude!: number;
 
   @ApiProperty({ example: 'unique' })
   @Column({ nullable: true })
-  category: string;
+  category!: string;
 
   @ApiProperty({ description: 'Images associated with the place' })
   @OneToMany(() => PlaceImage, (placeImage) => placeImage.place)
-  images: PlaceImage[];
+  images!: PlaceImage[];
 
   @ApiProperty({ example: 550 })
   @Column({ default: 0 })
-  likes: number;
+  likes!: number;
 
   @ApiProperty({ example: new Date().toISOString() })
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @ApiProperty({ example: new Date().toISOString() })
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

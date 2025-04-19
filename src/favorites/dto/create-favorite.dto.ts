@@ -1,3 +1,3 @@
 export class CreateFavoriteDto {
-  placeId: number;
+  placeId!: number;
 }
